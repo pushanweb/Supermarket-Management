@@ -1,0 +1,109 @@
+﻿@page
+@model SuperMarketManagementSystem.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div style="text-align:center">
+    <h1>Products</h1>
+
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm())
+        {
+            <span>Find by Product Name:</span>
+            <p>
+                @Html.TextBox("SearchString")  
+                <input type="submit" value="Search" class="btn btn-sm btn-primary" />
+            </p>
+        }
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm())
+        {
+            <span>Find by Category:</span>
+            <p>
+                @Html.TextBox("Category")  
+                <input type="submit" value="Search" class="btn btn-sm btn-primary" />
+            </p>
+        }
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm())
+        {
+            <span>Find by Price:</span>
+            <p>
+                Low: @Html.TextBox("PriceLow")<br>
+                High: @Html.TextBox("PriceHigh")  
+                <input type="submit" value="Search" class="btn btn-sm btn-primary" />
+            </p>
+        }
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Product) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ProductId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ProductId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

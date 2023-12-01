@@ -1,0 +1,105 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <section>
+            <h1><b>Cashier's Console</b></h1><br>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Invoice.ProductId" class="control-label"></label>
+                    <select asp-for="Invoice.ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Invoice.DateTime" class="control-label"></label>
+                    <input asp-for="Invoice.DateTime" class="form-control" />
+                    <span asp-validation-for="Invoice.DateTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Invoice.QuantitySold" class="control-label"></label>
+                    <input asp-for="Invoice.QuantitySold" class="form-control" />
+                    <span asp-validation-for="Invoice.QuantitySold" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-6">
+        <section>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IndexInvoice[0].CreatorId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IndexInvoice[0].Product)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IndexInvoice[0].DateTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IndexInvoice[0].QuantitySold)
+                        </th>
+                        <th>
+                            Qty Left
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IndexInvoice[0].Product.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IndexInvoice[0].InvoiceAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IndexInvoice[0].Status)
+                        </th>
+            
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach (var item in Model.IndexInvoice) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatorId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuantitySold)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+            
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.InvoiceId">Edit</a><br>
+                            <a asp-page="./Details" asp-route-id="@item.InvoiceId">Details</a><br>
+                            <a asp-page="./Delete" asp-route-id="@item.InvoiceId">Delete</a>
+                        </td>
+                    </tr>
+            }
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
